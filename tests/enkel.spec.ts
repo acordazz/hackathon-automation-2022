@@ -10,7 +10,6 @@ test.beforeEach(async ({ page }) => {
 });
 
 test('1. Lag et script som navigerer seg igjennom hele nettområdet. Scriptet skal klikke på alle menyvalgene', async () => {
-    const home = new Home(p);
     const sidebar = new Sidebar(p);
     await sidebar.toDo.click();
     await sidebar.counter.click();
