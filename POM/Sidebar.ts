@@ -11,10 +11,10 @@ export class Sidebar {
 
     constructor(page: Page) {
         this.page = page;
-        this.hackathonWebApp = page.locator('text=HackatonWebApp');
-        this.home = page.locator("body > div.page > div > div.collapse > nav > div:nth-child(1) > a");
-        this.counter = page.locator("body > div.page > div > div.collapse > nav > div:nth-child(2) > a");
-        this.fetchData = page.locator("body > div.page > div > div.collapse > nav > div:nth-child(3) > a");
-        this.toDo = page.locator("body > div.page > div > div.collapse > nav > div:nth-child(4) > a");
+        this.hackathonWebApp = page.locator("a", {hasText: "HackatonWebApp"});
+        this.home = page.locator("a", {hasText: "Home"});
+        this.counter = page.locator("a", {hasText: "Counter"});
+        this.fetchData = page.locator("a", {hasText: "Fetch data"});
+        this.toDo = page.locator("a", {hasText: "To do"});
     }
 }
