@@ -1,11 +1,12 @@
 import { test, expect, Page } from '@playwright/test';
 import { Home } from '../POM/home';
 import { Sidebar } from '../POM/sidebar';
+import { Todo } from '../POM/Todo';
 
 let p: Page;
 
 test.beforeEach(async ({ page }) => {
-    page.goto("https://hackatonwebapp.azurewebsites.net/");
+    await page.goto("https://hackatonwebapp.azurewebsites.net/");
     p = page;
 });
 
