@@ -9,9 +9,11 @@ export class Home{
     readonly grayText: Locator;
     readonly drumsLink: Locator;
     readonly currentCount: Locator;
+    readonly mainHeader: Locator;
 
     constructor (page: Page) {
         this.page = page;
+        this.mainHeader = page.locator("body > div.page > main > article > h1:nth-child(1)");
         this.counterTitle = page.locator("body >> div.page >> main >> article >> h1:nth-child(4)");
         this.counterClickMe = page.locator('text=Click me');
         this.grayText = page.locator("body > div.page > main > article > div > strong");
