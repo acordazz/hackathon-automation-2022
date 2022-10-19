@@ -18,7 +18,7 @@ export class FetchData extends Super {
     }
 
     async getTableContents() {
-        const allDates: dateType[] = await this.page.$$eval('body > div.page > main > article > table', (users) => {
+        const allDates: dateType[] = await this.page.$$eval('body > div.page > main > article > table > tbody > tr', (users) => {
             return users.map(day => {
                 const date = day.querySelector('td:nth-child(1)')?.textContent;
                 const tempC = day.querySelector('td:nth-child(2)')?.textContent;
