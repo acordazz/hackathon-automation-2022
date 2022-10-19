@@ -18,11 +18,3 @@ test('1. Lag et script som navigerer seg igjennom hele nettområdet. Scriptet sk
     await sidebar.hackathonWebApp.click();
     await sidebar.home.click();
 });
-
-test(`EXTRA: test todo`, async () => {
-    const sidebar = new Sidebar(p);
-    await sidebar.toDo.click();
-    const todo = new Todo(p);
-    const isItemAdded = await todo.addTodoItem("test item");
-    expect(isItemAdded).toBeTruthy();
-});

@@ -20,10 +20,12 @@ export class Todo {
         await this.page.getByPlaceholder('Something todo').click();
         await this.page.getByPlaceholder('Something todo').fill(item);
         await this.page.getByRole('button', { name: 'Add todo' }).click();
-        await this.page.waitForLoadState("domcontentloaded");
-        const isItemAdded = await this.page.locator('li', {hasText: item}).innerText() == item;
-        return isItemAdded;
     }
+
+    // async isItemAdded(item: string) {
+    //     const isItemAdded = ((await this.todoList.locator('input', {hasText: item}).innerText({ timeout: 3000})) == item);
+    //     return isItemAdded;
+    // }
 
     async getTodoItemsList() {
         
