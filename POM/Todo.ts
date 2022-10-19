@@ -10,16 +10,20 @@ type todoItems = {
 export class Todo extends Super{
 
     readonly todoList: Locator;
+    readonly addTodoButton: Locator;
+    readonly todoTextBox: Locator;
 
     constructor (page: Page) {
         super(page);
+        this.addTodoButton = page.getByRole("button", {name: "Add todo"});
+        this.todoTextBox = page.getByPlaceholder('Something todo');
         this.todoList = page.locator("body > div.page > main > article > ul");       
     }
     
     async addTodoItem(item: string) {        
-        await this.page.getByPlaceholder('Something todo').click();
-        await this.page.getByPlaceholder('Something todo').fill(item);
-        await this.page.getByRole('button', { name: 'Add todo' }).click();
+        await this.todoTextBox.click();
+        await this.todoTextBox.fill(item);
+        await this.addTodoButton.click();
     }
 
     // async isItemAdded(item: string) {

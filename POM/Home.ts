@@ -13,7 +13,7 @@ export class Home extends Super{
     constructor (page: Page) {
         super(page);
         this.counterTitle = page.locator("body >> div.page >> main >> article >> h1:nth-child(4)");
-        this.counterClickMe = page.locator('text=Click me');
+        this.counterClickMe = page.getByRole("button", { name: "Click me"});
         this.grayText = page.locator("body > div.page > main > article > div > strong");
         this.drumsLink = page.getByRole('link', { name: 'Test av en lyd, bilde av en tromme!' });
         this.currentCount = page.locator('text:right-of(:text("Current count: "))');

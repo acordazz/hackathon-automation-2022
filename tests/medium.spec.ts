@@ -13,7 +13,7 @@ test.beforeEach(async ({ page }) => {
     p = page;
 });
 
-test('Medium: 1 Lag et script som navigerer gjennom hele nettområdet', async () => {
+test('Medium: 1 Sjekk at titlene har en fornuftig verdi (Valider at titlene er riktige)', async () => {
     const sidebar = new Sidebar(p);
 
     type testData = {
@@ -31,6 +31,32 @@ test('Medium: 1 Lag et script som navigerer gjennom hele nettområdet', async ()
     for (const subpage of testData) {
         await subpage.clickOn.click({ timeout: 2000 });
         await expect(subpage.pom.title.first()).toHaveText(subpage.header);
+    }
+
+});
+
+test('Medium: 1 Valider knapper (Tekst, at de er der)', async () => {
+    const sidebar = new Sidebar(p);
+
+    type testData = {
+        subpageLink: Locator;
+        pom: Super;
+        text: string;
+        button: Locator;
+    }
+
+    const home = new Home(p);
+    const counter = new Counter(p);
+    const toDo = new Todo(p);
+    const testData: testData[] = [
+        {subpageLink: sidebar.counter, pom: counter, text: "Click me", button: counter.counterClickMe},
+        {subpageLink: sidebar.toDo, pom: toDo, text: "Add todo", button: toDo.addTodoButton},
+        {subpageLink: sidebar.home, pom: home, text: "Click me", button: home.counterClickMe}
+    ]
+
+    for (const subpage of testData) {
+        await subpage.subpageLink.click({ timeout: 1000});
+        await expect(subpage.button).toHaveText(subpage.text);
     }
 
 });
