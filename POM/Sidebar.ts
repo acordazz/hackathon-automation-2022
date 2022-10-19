@@ -1,8 +1,8 @@
 import { Locator, Page } from "@playwright/test";
+import { Super } from './Super';
 
-export class Sidebar {
+export class Sidebar extends Super {
 
-    readonly page: Page;
     readonly hackathonWebApp: Locator;
     readonly home: Locator;
     readonly counter: Locator;
@@ -10,7 +10,7 @@ export class Sidebar {
     readonly toDo: Locator;
 
     constructor(page: Page) {
-        this.page = page;
+        super(page);
         this.hackathonWebApp = page.locator("a", {hasText: "HackatonWebApp"});
         this.home = page.locator("a", {hasText: "Home"});
         this.counter = page.locator("a", {hasText: "Counter"});

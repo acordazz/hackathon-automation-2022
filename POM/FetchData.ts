@@ -1,4 +1,5 @@
 import { Page, Locator } from "@playwright/test";
+import { Super } from './Super';
 
 type dateType = {
     date: string | null | undefined;
@@ -7,14 +8,12 @@ type dateType = {
     summary: string | null | undefined;
 };
 
-export class FetchData {
+export class FetchData extends Super {
 
-
-    readonly page: Page;
     readonly weatherForecastTable: Locator;
 
     constructor (page: Page) {
-        this.page = page;
+        super(page);
               
     }
 

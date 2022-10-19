@@ -1,4 +1,5 @@
 import { Page, Locator } from "@playwright/test";
+import { Super } from "./Super";
 
 type todoItems = {
     listPosition: number | null | undefined;
@@ -6,13 +7,12 @@ type todoItems = {
     todoItem: string | null | undefined;
 }
 
-export class Todo {
+export class Todo extends Super{
 
-    readonly page: Page;
     readonly todoList: Locator;
 
     constructor (page: Page) {
-        this.page = page;
+        super(page);
         this.todoList = page.locator("body > div.page > main > article > ul");       
     }
     

@@ -1,9 +1,9 @@
 import { Locator, Page } from "@playwright/test";
+import { Super } from './Super';
 
 
-export class Home{
+export class Home extends Super{
 
-    readonly page: Page;
     readonly counterTitle: Locator;
     readonly counterClickMe: Locator;
     readonly grayText: Locator;
@@ -11,7 +11,7 @@ export class Home{
     readonly currentCount: Locator;
 
     constructor (page: Page) {
-        this.page = page;
+        super(page);
         this.counterTitle = page.locator("body >> div.page >> main >> article >> h1:nth-child(4)");
         this.counterClickMe = page.locator('text=Click me');
         this.grayText = page.locator("body > div.page > main > article > div > strong");
