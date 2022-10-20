@@ -73,11 +73,11 @@ test.describe("2. Lag et script som trykker pÃ¥ knapper. Valider at knappene gjÃ
         const counter = new Counter(p)
         const fetchData = new FetchData(p)
 
-        await page.locator('body > div.page > main > div > a').click();
+        await page.locator('body > div.page > main > article > div > span.text-nowrap > a').click();
         await page.waitForTimeout(2000);
         
         const [newPage] = await Promise.all([
-            page.context.waitForEvent(),
+            page.context(newPage),
             page.click('a[target="_blank"]') // Opens a new tab
           ])
           await newPage.waitForLoadState();
