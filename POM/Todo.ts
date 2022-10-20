@@ -1,10 +1,9 @@
 import { Page, Locator } from "@playwright/test";
 import { Super } from "./Super";
 
-type todoItems = {
-    listPosition: number | null | undefined;
+export type todoItems = {
     check: boolean | null | undefined;
-    todoItem: string | null | undefined;
+    todo: string | null | undefined;
 }
 
 export class Todo extends Super{
@@ -22,8 +21,11 @@ export class Todo extends Super{
     
     async addTodoItem(item: string) {        
         await this.todoTextBox.click();
+        await this.page.waitForTimeout(200);
         await this.todoTextBox.fill(item);
+        await this.page.waitForTimeout(200);
         await this.addTodoButton.click();
+        await this.page.waitForTimeout(200);
     }
 
     // async isItemAdded(item: string) {
@@ -36,5 +38,15 @@ export class Todo extends Super{
         const itemsList = await this.page.getByRole("list");
         return itemsList;
 
+    }
+
+    async getTableContents2(): Promise<todoItems[]> {
+        const allItems: todoItems[] = [];
+        const textboxes = this.page.locator('body > div.page > main > article > ul > li > input:nth-child(2)');
+        const checkboxes = this.page.locator('body > div.page > main > article > ul > li > input:nth-child(1)');
+        for (let i = 0; i < await textboxes.count(); i++) {
+            allItems.push({ check: await checkboxes.nth(i).isChecked(), todo: await textboxes.nth(i).inputValue()});
+        }
+        return allItems;
     }
 }
