@@ -10,6 +10,7 @@ export class Home{
     readonly drumsLink: Locator;
     readonly currentCount: Locator;
     readonly mainHeader: Locator;
+    readonly actualCount: Locator;
 
     constructor (page: Page) {
         this.page = page;
@@ -19,6 +20,7 @@ export class Home{
         this.grayText = page.locator("body > div.page > main > article > div > strong");
         this.drumsLink = page.getByRole('link', { name: 'Test av en lyd, bilde av en tromme!' });
         this.currentCount = page.locator('text:right-of(:text("Current count: "))');
+        this.actualCount = page.locator('body > div.page > main > article > p:nth-child(5)');
     }
 
     async clickOnSomething() {

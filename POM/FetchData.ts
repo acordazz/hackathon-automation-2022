@@ -12,9 +12,11 @@ export class FetchData {
 
     readonly page: Page;
     readonly weatherForecastTable: Locator;
+    readonly fetchDataHeader: Locator;
 
     constructor (page: Page) {
         this.page = page;
+        this.fetchDataHeader = page.locator('body > div.page > main > article > h1');
               
     }
 
