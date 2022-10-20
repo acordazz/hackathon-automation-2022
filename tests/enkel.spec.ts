@@ -20,7 +20,8 @@ test('1. Lag et script som navigerer seg igjennom hele nettområdet. Scriptet sk
     await sidebar.hackathonWebApp.click();
     await sidebar.home.click();
 });
-test('2. Lag et script som klikker på Counter knappene. Se at tallene teller opp. Merk dere hvordan strukturen er på tellingen og at det er forskjell på forsiden og Countersiden.', async({page}) => {
+test.describe('2. Lag et script som klikker på Counter knappene. Se at tallene teller opp. Merk dere hvordan strukturen er på tellingen og at det er forskjell på forsiden og Countersiden.', async () => {
+    test('Homepage', async({page}) => {
         const home = new Home(p)
         const sidebar = new Sidebar(p)
         const counter = new Counter(p)
@@ -33,13 +34,18 @@ test('2. Lag et script som klikker på Counter knappene. Se at tallene teller op
             var numberOfClicks = (i * 10).toString(); 
             await expect(home.actualCount).toContainText(numberOfClicks);
         }
+    })
+    test('Counterpage', async ({page}) => {
+        const sidebar = new Sidebar(p)
 
         await sidebar.counter.click();
         await expect(page.locator('body > div.page > main > article > p')).toContainText('0')
-        await expect(counter.currentCount).toContainText('0')
+        //await page.waitForTimeout(1500)
+        
+        await page.locator('body > div.page > main > article > button').isEnabled();
+        //await page.waitForSelector('body > div.page > main > article > button', {state: 'attached'});
         await page.locator('body > div.page > main > article > button').click();
-        await page.waitForTimeout(1000)
-        await expect(counter.currentCount).toContainText('1')
-    
-
+        await page.waitForTimeout(2000)
+        await expect(page.locator('body > div.page > main > article > p')).toContainText('1')
+    })
 })
