@@ -67,22 +67,40 @@ test.describe("2. Lag et script som trykker p책 knapper. Valider at knappene gj�
         await expect(home.actualCount).toContainText('10');
         
     });
-    test('B. Lag sjekker p책 at lenke til ekstern side dukker opp i ny tab', async ({page}) => {
-        const home = new Home(p)
-        const sidebar = new Sidebar(p)
-        const counter = new Counter(p)
-        const fetchData = new FetchData(p)
-
-        await page.locator('body > div.page > main > article > div > span.text-nowrap > a').click();
-        await page.waitForTimeout(2000);
+    test('B-C. Lag sjekker p책 at lenke til ekstern side dukker opp i ny tab. Sjekk at siden som kommer opp er www.trommelyd.no', async ({page}) => {
         
-            await page.click('body > div.page > main > article > div > span.text-nowrap > a', { button: "middle" });
-            await page.waitForTimeout(2000); //waitForNavigation and waitForLoadState do not work in this case
-            let pages = await context.pages();
-
-        await page.context().newPage().click('body > div.page > main > article > div > span.text-nowrap > a')
-        await (await page.context().newPage())
-        await expect(page).toHaveURL('https://learn.microsoft.com/en-gb/aspnet/core/?view=aspnetcore-6.0')
+        const context = await page.context();
+        const [newPage] = await Promise.all([
+        context.waitForEvent('page'),
+        page.click('body > div.page > main > article > div > span.text-nowrap > a') // Opens a new tab
+        ])
+        await newPage.waitForLoadState();
+        
+        await expect(newPage).toHaveURL('https://trommelyd.no')
     });
+    test.describe('D. Lag en test p책 at du trykker p책 counter knappene ti ganger', async () => {
+        test('Homepage', async({page}) => {
+            const home = new Home(p)
+            
+            await page.waitForTimeout(1000)
+            for(let i= 0; i < 10; i++){
+                //TODO: finn bedre wait metode
+                await expect(home.actualCount).toContainText((i).toString())
+                await page.locator('body > div.page > main > article > button').click();
+                await expect(home.actualCount).toContainText((i * 10).toString());
+            }
+        })
+        test('Counterpage', async ({page}) => {
+            const sidebar = new Sidebar(p)
+            await sidebar.counter.click();
+            await page.waitForTimeout(1500)
+            
+            for(let i = 0; i<10; i++){
+                await expect(page.locator('body > div.page > main > article > p')).toContainText(i.toString())
+                page.locator('body > div.page > main > article > button').click()
+                await expect(page.locator('body > div.page > main > article > p')).toContainText((i + 1).toString())
+            }
+        })
+    })
 })
 
