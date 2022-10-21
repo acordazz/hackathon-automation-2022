@@ -8,6 +8,8 @@ export class Sidebar extends Super {
     readonly counter: Locator;
     readonly fetchData: Locator;
     readonly toDo: Locator;
+    readonly allHeaders: Locator;
+    readonly highlighted: Locator;
 
     constructor(page: Page) {
         super(page);
@@ -16,5 +18,7 @@ export class Sidebar extends Super {
         this.counter = page.locator("a", {hasText: "Counter"});
         this.fetchData = page.locator("a", {hasText: "Fetch data"});
         this.toDo = page.locator("a", {hasText: "To do"});
+        this.allHeaders = page.locator("a");
+        this.highlighted = page.locator("//a[contains(@class, 'active')]");
     }
 }

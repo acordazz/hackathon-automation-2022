@@ -11,11 +11,17 @@ test.beforeEach(async ({ page }) => {
 
 test('Enkelt: 1. Lag et script som navigerer seg igjennom hele nettområdet. Scriptet skal klikke på alle menyvalgene', async () => {
     const sidebar = new Sidebar(p);
-    await sidebar.toDo.click({ timeout: 2000 });
-    await sidebar.counter.click({ timeout: 2000 });
-    await sidebar.fetchData.click({ timeout: 2000 });
-    await sidebar.hackathonWebApp.click({ timeout: 2000 });
-    await sidebar.home.click({ timeout: 2000 });
+    const testData = [
+        {locator: sidebar.toDo, text: "To do"},
+        {locator: sidebar.home, text: "Home"},
+        {locator: sidebar.counter, text: "Counter"},
+        {locator: sidebar.fetchData, text: "Fetch data"},
+        {locator: sidebar.hackathonWebApp, text: "Home"},
+    ]
+    for (const header of testData) {
+        await header.locator.click();
+        await sidebar.highlighted.filter({ hasText: header.text}).waitFor();
+    }
 });
 
 test('Enkelt: 3. Lag et script som legger til elementer i To Do listen.', async () => {
@@ -24,7 +30,7 @@ test('Enkelt: 3. Lag et script som legger til elementer i To Do listen.', async 
     const totalTexts = 5;
 
     await test.step(`Adding items to Todo list. Total items: ${totalTexts}`, async() => {
-        await sidebar.toDo.click({ timeout: 2000 });
+        await sidebar.toDo.click();
         await p.waitForTimeout(1000);
         for (let text = 1; text <= totalTexts; text++) {
             await todo.addTodoItem(`Adding item ${text}`);
