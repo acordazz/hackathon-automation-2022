@@ -80,7 +80,7 @@ test('Medium: 3. Lag et script som sjekker at du fyller To Do listen med de elem
         }});
     let itemsList: todoItems[] = [];
     await test.step(`Getting list of todo items after added.`, async() => {
-        itemsList = await todo.getTableContents2();
+        itemsList = await todo.getTableContents();
     });   
     const itemsAdded: any[] = [];
     for (const item of itemsList) {

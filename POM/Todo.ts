@@ -40,7 +40,7 @@ export class Todo extends Super{
 
     }
 
-    async getTableContents2(): Promise<todoItems[]> {
+    async getTableContents(): Promise<todoItems[]> {
         const allItems: todoItems[] = [];
         const textboxes = this.page.locator('body > div.page > main > article > ul > li > input:nth-child(2)');
         const checkboxes = this.page.locator('body > div.page > main > article > ul > li > input:nth-child(1)');
