@@ -18,10 +18,17 @@ test('Hard: 1. Lag et script som sjekker at datoene som hentes opp i Weather For
         await sidebar.fetchData.click({ timeout: 2000 });
         allDates = await fetchData.getTableContents();
     });
-    const today = new Date();
+    const today = Date.now();
+    // let previousDay = new Date(today.toDateString().replace(/\./gi,"/"));
+    let previousDate = Date.now() - (Date.now()%86400000) - 2*60*60*1000;
     for (const date of allDates) {
         if (date.date != null) {
-            expect(today.getMilliseconds() < Date.parse(date.date), `Verifying that date '${date.date}' is ahead in time`).toBeTruthy();
+            const newDay = Date.parse(date.date);
+            console.log(`Previous: ${previousDate} - actual: ${Date.parse(date.date)} - difference: ${Date.parse(date.date) - previousDate}`);
+            expect(Date.parse(date.date) - previousDate, `Verifying that date difference is one day. Previous: '${new Date(parseInt(previousDate.toString(), 10))}', actual: '${date.date}'`).toEqual(86400000);
+            previousDate = Date.parse(date.date);
+            // expect(today < Date.parse(date.date), `Verifying that date '${date.date}' is ahead in time`).toBeTruthy();
+            // expect(previousDay.toLocaleDateString())
         } else { throw (new Error("could not get date."));
         }
     } 
