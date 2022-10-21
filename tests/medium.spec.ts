@@ -76,11 +76,11 @@ test.describe("2. Lag et script som trykker pÃ¥ knapper. Valider at knappene gjÃ
         await page.locator('body > div.page > main > article > div > span.text-nowrap > a').click();
         await page.waitForTimeout(2000);
         
-        const [newPage] = await Promise.all([
-            page.context(newPage),
-            page.click('a[target="_blank"]') // Opens a new tab
-          ])
-          await newPage.waitForLoadState();
+            await page.click('body > div.page > main > article > div > span.text-nowrap > a', { button: "middle" });
+            await page.waitForTimeout(2000); //waitForNavigation and waitForLoadState do not work in this case
+            let pages = await context.pages();
+
+        await page.context().newPage().click('body > div.page > main > article > div > span.text-nowrap > a')
         await (await page.context().newPage())
         await expect(page).toHaveURL('https://learn.microsoft.com/en-gb/aspnet/core/?view=aspnetcore-6.0')
     });

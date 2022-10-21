@@ -26,26 +26,23 @@ test.describe('2. Lag et script som klikker på Counter knappene. Se at tallene 
         const sidebar = new Sidebar(p)
         const counter = new Counter(p)
         
+        await page.waitForTimeout(1000)
         for(let i= 0; i < 5; i++){
-            await expect(home.actualCount).toContainText('0');
             //TODO: finn bedre wait metode
-            await page.waitForTimeout(1000)
+            await expect(home.actualCount).toContainText((i).toString())
             await page.locator('body > div.page > main > article > button').click();
-            var numberOfClicks = (i * 10).toString(); 
-            await expect(home.actualCount).toContainText(numberOfClicks);
+            await expect(home.actualCount).toContainText((i * 10).toString());
         }
     })
     test('Counterpage', async ({page}) => {
         const sidebar = new Sidebar(p)
-
         await sidebar.counter.click();
-        await expect(page.locator('body > div.page > main > article > p')).toContainText('0')
-        //await page.waitForTimeout(1500)
+        await page.waitForTimeout(1500)
         
-        await page.locator('body > div.page > main > article > button').isEnabled();
-        //await page.waitForSelector('body > div.page > main > article > button', {state: 'attached'});
-        await page.locator('body > div.page > main > article > button').click();
-        await page.waitForTimeout(2000)
-        await expect(page.locator('body > div.page > main > article > p')).toContainText('1')
+        for(let i = 1; i<10; i++){
+            await expect(page.locator('body > div.page > main > article > p')).toContainText((i - 1).toString())
+            page.locator('body > div.page > main > article > button').click()
+            await expect(page.locator('body > div.page > main > article > p')).toContainText(i.toString())
+        }
     })
 })
