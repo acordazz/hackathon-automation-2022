@@ -6,6 +6,7 @@ import { Counter } from '../POM/Counter';
 import { FetchData } from '../POM/FetchData';
 import { Todo } from '../POM/ToDo';
 import exp from 'constants';
+import { strict } from 'assert';
 
 let p: Page;
 
@@ -78,8 +79,8 @@ test.describe("2. Lag et script som trykker på knapper. Valider at knappene gj�
         
         await expect(newPage).toHaveURL('https://trommelyd.no')
     });
-    test.describe('D. Lag en test på at du trykker på counter knappene ti ganger', async () => {
-        test('Homepage', async({page}) => {
+    test('D. Lag en test på at du trykker på counter knappene ti ganger', async ({page}) => {
+        await test.step('Homepage', async() => {
             const home = new Home(p)
             
             await page.waitForTimeout(1000)
@@ -90,14 +91,14 @@ test.describe("2. Lag et script som trykker på knapper. Valider at knappene gj�
                 await expect(home.actualCount).toContainText((i * 10).toString());
             }
         })
-        test('Counterpage', async ({page}) => {
+        await test.step('Counterpage', async () => {
             const sidebar = new Sidebar(p)
             await sidebar.counter.click();
             await page.waitForTimeout(1500)
             
             for(let i = 0; i<10; i++){
                 await expect(page.locator('body > div.page > main > article > p')).toContainText(i.toString())
-                page.locator('body > div.page > main > article > button').click()
+                await page.locator('body > div.page > main > article > button').click()
                 await expect(page.locator('body > div.page > main > article > p')).toContainText((i + 1).toString())
             }
         })
