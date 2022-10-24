@@ -43,6 +43,10 @@ const config: PlaywrightTestConfig = {
     video: {
       mode: "on",
       size: { width: 640, height: 480 }
+    },
+    screenshot: "only-on-failure",
+    launchOptions: {
+      slowMo: 100,
     }
   },
 
