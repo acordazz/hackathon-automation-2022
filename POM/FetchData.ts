@@ -1,4 +1,5 @@
 import { Page, Locator } from "@playwright/test";
+import { Super } from './Super';
 
 type dateType = {
     date: string | null | undefined;
@@ -7,19 +8,19 @@ type dateType = {
     summary: string | null | undefined;
 };
 
-export class FetchData {
+export class FetchData extends Super {
 
-
-    readonly page: Page;
     readonly weatherForecastTable: Locator;
+    readonly header: Locator;
 
     constructor (page: Page) {
-        this.page = page;
+        super(page);
+        this.header = page.locator('body > div.page > main > article > h1');
               
     }
 
     async getTableContents() {
-        const allDates: dateType[] = await this.page.$$eval('body > div.page > main > article > table', (users) => {
+        const allDates: dateType[] = await this.page.$$eval('body > div.page > main > article > table > tbody > tr', (users) => {
             return users.map(day => {
                 const date = day.querySelector('td:nth-child(1)')?.textContent;
                 const tempC = day.querySelector('td:nth-child(2)')?.textContent;

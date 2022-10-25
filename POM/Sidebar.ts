@@ -1,20 +1,24 @@
 import { Locator, Page } from "@playwright/test";
+import { Super } from './Super';
 
-export class Sidebar {
+export class Sidebar extends Super {
 
-    readonly page: Page;
     readonly hackathonWebApp: Locator;
     readonly home: Locator;
     readonly counter: Locator;
     readonly fetchData: Locator;
     readonly toDo: Locator;
+    readonly allHeaders: Locator;
+    readonly highlighted: Locator;
 
     constructor(page: Page) {
-        this.page = page;
-        this.hackathonWebApp = page.locator('text=HackatonWebApp');
-        this.home = page.locator("body > div.page > div > div.collapse > nav > div:nth-child(1) > a");
-        this.counter = page.locator("body > div.page > div > div.collapse > nav > div:nth-child(2) > a");
-        this.fetchData = page.locator("body > div.page > div > div.collapse > nav > div:nth-child(3) > a");
-        this.toDo = page.locator("body > div.page > div > div.collapse > nav > div:nth-child(4) > a");
+        super(page);
+        this.hackathonWebApp = page.locator("a", {hasText: "HackatonWebApp"});
+        this.home = page.locator("a", {hasText: "Home"});
+        this.counter = page.locator("a", {hasText: "Counter"});
+        this.fetchData = page.locator("a", {hasText: "Fetch data"});
+        this.toDo = page.locator("a", {hasText: "To do"});
+        this.allHeaders = page.locator("a");
+        this.highlighted = page.locator("//a[contains(@class, 'active')]");
     }
 }
