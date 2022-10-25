@@ -11,12 +11,14 @@ export class Todo extends Super{
     readonly todoList: Locator;
     readonly addTodoButton: Locator;
     readonly todoTextBox: Locator;
+    readonly header: Locator;
 
     constructor (page: Page) {
         super(page);
         this.addTodoButton = page.getByRole("button", {name: "Add todo"});
         this.todoTextBox = page.getByPlaceholder('Something todo');
-        this.todoList = page.locator("body > div.page > main > article > ul");       
+        this.todoList = page.locator("body > div.page > main > article > ul");
+        this.header = page.locator('body > div.page > main > article > h3');       
     }
     
     async addTodoItem(item: string) {        
@@ -45,6 +47,7 @@ export class Todo extends Super{
         const textboxes = this.page.locator('body > div.page > main > article > ul > li > input:nth-child(2)');
         const checkboxes = this.page.locator('body > div.page > main > article > ul > li > input:nth-child(1)');
         for (let i = 0; i < await textboxes.count(); i++) {
+            await checkboxes.nth(i).click();
             allItems.push({ check: await checkboxes.nth(i).isChecked(), todo: await textboxes.nth(i).inputValue()});
         }
         return allItems;

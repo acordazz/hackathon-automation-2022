@@ -3,6 +3,7 @@ import { Sidebar } from '../POM/sidebar';
 import { FetchData } from '../POM/FetchData';
 import { Home } from '../POM/Home';
 import { DateTime } from 'luxon';
+import { Todo } from '../POM/Todo';
 
 let p: Page;
 
@@ -28,6 +29,35 @@ test('Hard: 1. Lag et script som sjekker at datoene som hentes opp i Weather For
             previousDay = newDate;
         }
     }
+});
+
+test('Hard: 2. Lag et script som enabler/trykker på checkbox for alle item du legger inn i to do listen. Valider at den er «checked» etterpå.', async () => {
+    const sidebar = new Sidebar(p);
+    const todo = new Todo(p);
+    const texts = [
+        "Smøre på brødskiva selv!",
+        "Skru av lyset om natta!",
+        "Se at varmeovnene er skrudd ned noen hakk!",
+        "Bli mer mijøvennlig!"
+    ];
+
+    await test.step(`Adding items to Todo list. Total items: ${texts.length}`, async() => {
+        await sidebar.toDo.click({ timeout: 2000 });
+        await p.waitForTimeout(2000);
+        for (const text of texts) {
+            await todo.addTodoItem(text);
+            await p.waitForTimeout(200);
+        }});
+
+    await test.step('Checking the checkboxes', async() => {
+        let tableContents;
+        await test.step('Clicking on checkboxes', async () => {
+            tableContents = await todo.getTableContents();});
+        for (const line of tableContents) {
+            expect(await line.check, `Line ${line.todo}, is checked: ${line.check}`).toBeTruthy();
+        }
+    }); 
+    
 });
 
 test('Hard: 3.	Lag et script som trykker på trommen i siden som det lenkes til i den grå boksen.', async () => {

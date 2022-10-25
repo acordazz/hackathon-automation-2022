@@ -11,9 +11,11 @@ type dateType = {
 export class FetchData extends Super {
 
     readonly weatherForecastTable: Locator;
+    readonly header: Locator;
 
     constructor (page: Page) {
         super(page);
+        this.header = page.locator('body > div.page > main > article > h1');
               
     }
 
