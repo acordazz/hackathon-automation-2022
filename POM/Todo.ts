@@ -10,10 +10,12 @@ export class Todo {
 
     readonly page: Page;
     readonly todoList: Locator;
+    readonly title: Locator;
 
     constructor (page: Page) {
         this.page = page;
-        this.todoList = page.locator("body > div.page > main > article > ul");       
+        this.todoList = page.locator("body > div.page > main > article > ul");
+        this.title = page.locator('h3', { hasText: 'Todo' });
     }
     
     async addTodoItem(item: string) {        

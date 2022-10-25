@@ -5,6 +5,7 @@ export class Home{
 
     readonly page: Page;
     readonly counterTitle: Locator;
+    readonly mainTitle: Locator;
     readonly counterClickMe: Locator;
     readonly grayText: Locator;
     readonly drumsLink: Locator;
@@ -12,11 +13,12 @@ export class Home{
 
     constructor (page: Page) {
         this.page = page;
-        this.counterTitle = page.locator("body >> div.page >> main >> article >> h1:nth-child(4)");
-        this.counterClickMe = page.locator('text=Click me');
+        this.counterTitle = page.locator('h1',  { hasText: 'Counter' });
+        this.mainTitle = page.locator('h1', { hasText: 'Test Automation Hackaton!' });
+        this.counterClickMe = page.locator('.btn');   
         this.grayText = page.locator("body > div.page > main > article > div > strong");
         this.drumsLink = page.getByRole('link', { name: 'Test av en lyd, bilde av en tromme!' });
-        this.currentCount = page.locator('text:right-of(:text("Current count: "))');
+        this.currentCount = page.locator('[role="status"]');
     }
 
     async clickOnSomething() {

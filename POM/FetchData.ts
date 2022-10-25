@@ -12,10 +12,11 @@ export class FetchData {
 
     readonly page: Page;
     readonly weatherForecastTable: Locator;
+    readonly title: Locator;
 
     constructor (page: Page) {
         this.page = page;
-              
+        this.title = page.locator('h1', { hasText: 'Weather forecast' });      
     }
 
     async getTableContents() {
