@@ -73,7 +73,6 @@ test.describe("Medium 2. Lag et script som trykker på knapper. Valider at knapp
         const home = new Home(p)
         
         await expect(home.currentCount).toContainText('0');
-        //TODO: finn bedre wait metode
         await page.waitForTimeout(1000)
         await home.counterClickMe.click();
         await expect(home.currentCount).toContainText('10');
@@ -91,7 +90,6 @@ test.describe("Medium 2. Lag et script som trykker på knapper. Valider at knapp
             
             await page.waitForTimeout(1000)
             for(let i= 0; i < 10; i++){
-                //TODO: finn bedre wait metode
                 await expect(home.currentCount).toContainText((i).toString())
                 await home.counterClickMe.click();
                 await expect(home.currentCount).toContainText((i * 10).toString());
@@ -112,7 +110,7 @@ test.describe("Medium 2. Lag et script som trykker på knapper. Valider at knapp
     })
 })
 
-test('Medium: 3. Lag et script som sjekker at du fyller To Do listen med de elementene du legger inn.', async () => {
+test('Medium 3. Lag et script som sjekker at du fyller To Do listen med de elementene du legger inn.', async () => {
     const sidebar = new Sidebar(p);
     const todo = new Todo(p);
     const texts = [
