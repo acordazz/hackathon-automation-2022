@@ -17,7 +17,8 @@ test("EasterEgg?", async ({page}) => {
             await page.waitForTimeout(1500)
             
             for(let i = 0; i<44; i++){
-                await counter.counterClickMe.click()
+                await counter.waitForCounterNumber(i);
+                await counter.counterClickMe.click();
             }
             await expect(counter.currentCount).toContainText("100001");
 })
