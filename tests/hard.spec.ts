@@ -88,7 +88,7 @@ test('Hard: 3.	Lag et script som trykker på trommen i siden som det lenkes til 
             });
         const response = await page1.getByRole('img', { name: 'Tromme' }).click();
         const soundFound = responses.find((obj) => {
-            return obj.status == "206" && obj.url == "https://trommelyd.no/media/trommelyd.mp3"; 
+            return obj.url.includes("trommelyd.mp3"); 
         }) != undefined;
         expect(soundFound, `Verifying whether clicking on drums gets trommelyd.mp3 as response`).toBeTruthy();
 
