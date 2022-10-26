@@ -12,7 +12,7 @@ test.beforeEach(async ({ page }) => {
     p = page;
 });
 
-test('Hard: 1. Lag et script som sjekker at datoene som hentes opp i Weather Forecast er i morgen og utover, 10 dager frem i tid', async () => {
+test('Hard 1. Lag et script som sjekker at datoene som hentes opp i Weather Forecast er i morgen og utover, 10 dager frem i tid', async () => {
     const sidebar = new Sidebar(p);
     const fetchData = new FetchData(p);
     let allDates;
@@ -31,7 +31,7 @@ test('Hard: 1. Lag et script som sjekker at datoene som hentes opp i Weather For
     }
 });
 
-test('Hard: 2. Lag et script som enabler/trykker på checkbox for alle item du legger inn i to do listen. Valider at den er «checked» etterpå.', async () => {
+test('Hard 2. Lag et script som enabler/trykker på checkbox for alle item du legger inn i to do listen. Valider at den er «checked» etterpå.', async () => {
     const sidebar = new Sidebar(p);
     const todo = new Todo(p);
     const texts = [
@@ -60,7 +60,7 @@ test('Hard: 2. Lag et script som enabler/trykker på checkbox for alle item du l
     
 });
 
-test('Hard: 3.	Lag et script som trykker på trommen i siden som det lenkes til i den grå boksen.', async () => {
+test('Hard 3.	Lag et script som trykker på trommen i siden som det lenkes til i den grå boksen.', async () => {
     const home = new Home(p);
     let page1;
     await test.step(`Clicking on link to drums page and waiting for it to load.`, async () => {
