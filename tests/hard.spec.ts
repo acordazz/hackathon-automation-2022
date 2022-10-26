@@ -67,7 +67,30 @@ test('Hard 3.	Lag et script som trykker på trommen i siden som det lenkes til i
         page1 = await home.clickOnDrumsLink();
     });
     expect(page1, 'Verifying that popup for drums is opened').not.toBeNull();
-    await test.step(`Added a small timeout to record drums.`, async () => {
-        await p.waitForTimeout(3 * 1000);
+    await test.step(`Testing whether we receive sound of drums.`, async () => {
+        type req = {
+            method: string, url: string,
+        };
+        type res = {
+            status: string, url: string,
+        }
+        const requests: req[] = [];
+        const responses: res[] = [];
+        page1.on('request', request =>
+            {
+                console.log('>>', request.method(), request.url());
+                requests.push({method: request.method(), url: request.url()});
+        });
+        page1.on('response', response =>
+            {
+                console.log('<<', response.status(), response.url());
+                responses.push({status: response.status(), url: response.url()});
+            });
+        const response = await page1.getByRole('img', { name: 'Tromme' }).click();
+        const soundFound = responses.find((obj) => {
+            return obj.url.includes("trommelyd.mp3"); 
+        }) != undefined;
+        expect(soundFound, `Verifying whether clicking on drums gets trommelyd.mp3 as response`).toBeTruthy();
+
     });
 });
