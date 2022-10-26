@@ -60,7 +60,7 @@ test('Hard: 2. Lag et script som enabler/trykker på checkbox for alle item du l
     
 });
 
-test('Hard: 3.	Lag et script som trykker på trommen i siden som det lenkes til i den grå boksen.', async ({ request }) => {
+test('Hard: 3.	Lag et script som trykker på trommen i siden som det lenkes til i den grå boksen.', async () => {
     const home = new Home(p);
     let page1;
     await test.step(`Clicking on link to drums page and waiting for it to load.`, async () => {
