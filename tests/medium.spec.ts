@@ -90,9 +90,10 @@ test.describe("Medium 2. Lag et script som trykker på knapper. Valider at knapp
             
             await page.waitForTimeout(1000)
             for(let i= 0; i < 10; i++){
+                await home.waitForCounterNumber(i*10);
                 await home.counterClickMe.click();
                 await home.waitForCounterNumber((i+1)*10);
-                await expect(home.currentCount).toContainText((i * 10).toString());
+                await expect(home.currentCount).toContainText(((i+1) * 10).toString());
             }
         })
         await test.step('Counterpage', async () => {
@@ -102,10 +103,10 @@ test.describe("Medium 2. Lag et script som trykker på knapper. Valider at knapp
             await page.waitForTimeout(1500)
             
             for(let i = 0; i<10; i++){
-                await counter.waitForCounterNumber(i*10);
+                await counter.waitForCounterNumber(i);
                 await expect(counter.currentCount).toContainText(i.toString())
                 await counter.counterClickMe.click()
-                await counter.waitForCounterNumber((i+1)*10);
+                await counter.waitForCounterNumber(i+1);
                 await expect(counter.currentCount).toContainText((i + 1).toString())
             }
         })

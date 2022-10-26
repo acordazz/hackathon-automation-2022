@@ -14,7 +14,6 @@ test("EasterEgg?", async ({page}) => {
             const counter = new Counter(p);
             const sidebar = new Sidebar(p);
             await sidebar.counter.click();
-            await page.waitForTimeout(1500)
             
             for(let i = 0; i<44; i++){
                 await counter.waitForCounterNumber(i);
