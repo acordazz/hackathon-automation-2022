@@ -8,13 +8,13 @@ Playwright er et node.js bibliotek hvor man kan interakte med page-elements ved 
 
 | Navn | Beskrivelse |
 | ---  | ---     |
-| Lucxon | A powerful, modern, and friendly wrapper for JavaScript dates and times |
+| Luxon | A powerful, modern, and friendly wrapper for JavaScript dates and times |
 
 ### Kjør opp testene
 
 Klon repositoriet vårt:
 
-```https://github.com/acordazz/https://github.com/acordazz/hackathon-automation-2022.git.git```
+```https://github.com/acordazz/https://github.com/acordazz/hackathon-automation-2022.git```
 
 Naviger inn til prosjektet: ```hackathon-automation-2022```.
 
