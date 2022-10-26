@@ -13,4 +13,8 @@ export class Counter extends Super{
         this.counterClickMe = page.locator('.btn');  
         this.header = page.locator('body > div.page > main > article > h1'); 
     }
+
+    async waitForCounterNumber(n: number) {
+        await this.page.waitForSelector(`body > div.page > main > article > p >> text="Current count: ${n}"`);
+    }
 }

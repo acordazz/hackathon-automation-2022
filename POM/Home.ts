@@ -33,4 +33,8 @@ export class Home extends Super{
 
           return page1;
     }
+    
+    async waitForCounterNumber(n: number) {
+        await this.page.waitForSelector(`body > div.page > main > article > p:nth-child(5) >> text="Current count: ${n}"`);
+    }
 }
