@@ -17,12 +17,9 @@ Klon repositoriet vårt:
 ```https://github.com/acordazz/https://github.com/acordazz/hackathon-automation-2022.git```
 
 Naviger inn til prosjektet: ```hackathon-automation-2022```.
-
-Installer Playwright i path'en:
-```npm i -D @playwright/test```
-
-Installer Luxon:
-```npm i luxon```
+Installer alle biblioteker (krever npm):
+```npm install```
 
 Kjør Playwright testene:
-```npx playwright test --project='chromium'```
+```npx playwright test```
+```npx playwright test --project='chromium'``` - kun chromium browser
