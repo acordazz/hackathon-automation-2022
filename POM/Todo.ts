@@ -18,7 +18,7 @@ export class Todo extends Super{
         this.addTodoButton = page.getByRole("button", {name: "Add todo"});
         this.todoTextBox = page.getByPlaceholder('Something todo');
         this.todoList = page.locator("body > div.page > main > article > ul");
-        this.header = page.locator('body > div.page > main > article > h3');       
+        this.header = page.getByRole('heading', {name: "Todo"});       
     }
     
     async addTodoItem(item: string) {        
