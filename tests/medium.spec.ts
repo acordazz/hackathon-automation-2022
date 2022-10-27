@@ -29,9 +29,9 @@ test.describe("Medium 1. Lag et script som navigerer gjennom hele nettområdet. 
             {sbCounter: sidebar.toDo, pom: toDo, text: 'Todo'},
         ];
         for (const sp of testData){
-            await test.step(`Header of ${sp.text}`, async () => {
+            await test.step(`Title of ${sp.text}`, async () => {
                 await sp.sbCounter.click();
-                await expect(sp.pom.header, `Header of ${await sp.pom.header.innerText()} should be ${sp.text}`).toHaveText(sp.text);
+                await expect(sp.pom.header, `Title of ${await sp.pom.header.innerText()} should be ${sp.text}`).toHaveText(sp.text);
             });
         }
         
@@ -55,16 +55,24 @@ test.describe("Medium 1. Lag et script som navigerer gjennom hele nettområdet. 
     });
 
     test('C. Bør navigere gjennom hver enkel link i sidebar og verifisere at dokument-titlene stemmer.', async ({ page }) => {
-        const sidebar = new Sidebar(p);
-        
-        await sidebar.counter.click();
-        await expect(page).toHaveTitle('Counter');
-        await sidebar.fetchData.click();
-        await expect(page).toHaveTitle('Weather forecast');
-        // await sidebar.toDo.click();
-        // await expect(page, `This is expected to fail since subpage 'Todo' is actually displaying 'HackatonWebApp'`).toHaveTitle('Todo');
-        // await sidebar.home.click();
-        // await expect(page, `This is expected to fail since subpage 'Home' is actually displaying 'Counter'`).toHaveTitle('HackatonWebApp');
+        const home = new Home(p)
+        const sidebar = new Sidebar(p)
+        const counter = new Counter(p)
+        const fetchData = new FetchData(p)
+        const toDo = new Todo(p)
+
+        const testData = [
+            {sbCounter: sidebar.home, pom: home, text: 'HackatonWebApp'},
+            {sbCounter: sidebar.counter, pom: counter, text: 'Counter'},
+            {sbCounter: sidebar.fetchData, pom: fetchData, text: 'Weather forecast'},
+            {sbCounter: sidebar.toDo, pom: toDo, text: 'Todo'},
+        ];
+        for (const sp of testData){
+            await test.step(`Document title of ${sp.text}`, async () => {
+                await sp.sbCounter.click();
+                await expect.soft(page, `Document title of ${await page.title()} should be ${sp.text}`).toHaveTitle(sp.text);
+            });
+        }
     });
 });
 
