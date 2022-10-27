@@ -14,10 +14,11 @@ test("EasterEgg?", async ({page}) => {
             const counter = new Counter(p);
             const sidebar = new Sidebar(p);
             await sidebar.counter.click();
+            await page.waitForTimeout(1500);
             
-            for(let i = 0; i<44; i++){
-                await counter.waitForCounterNumber(i);
+            for(let i = 0; i<18; i++){
+                // await counter.waitForCounterNumber(i);
                 await counter.counterClickMe.click();
             }
-            await expect(counter.currentCount, `Expecting counter at 44th click to be '100001'`).toContainText("100001");
+            await expect(counter.currentCount, `Expecting counter at 18th click to be '10001'`).toContainText("10001");
 })
