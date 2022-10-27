@@ -32,23 +32,31 @@ test('Enkel 2. Lag et script som klikker på Counter knappene. Se at tallene tel
         
         await page.waitForTimeout(1000)
         for(let i= 0; i < 10; i++){
-            await expect(home.currentCount).toContainText((i).toString());
+            await expect(home.currentCount, `Expect counter at Home to contain number ${i}`).toContainText((i).toString());
             await home.counterClickMe.click();
-            await expect(home.currentCount).toContainText((i * 10).toString());
+            await expect(home.currentCount, `Expect counter at Home to contain number ${i*10}`).toContainText((i * 10).toString());
         }
     })
     await test.step('Counterpage', async () => {
         const counter = new Counter(p);
-        const sidebar = new Sidebar(p);
-        await sidebar.counter.click();
-        await page.waitForTimeout(1500)
-        
-        for(let i = 0; i<10; i++){
-            await expect(counter.currentCount).toContainText(i.toString())
-            await counter.counterClickMe.click()
-            await expect(counter.currentCount).toContainText((i + 1).toString())
-        }
-    })
+            const sidebar = new Sidebar(p);
+            await sidebar.counter.click();
+            await page.waitForTimeout(1500)
+            
+            for(let i = 0; i<10010; i++){
+                await counter.waitForCounterNumber(i);
+                await expect(counter.currentCount, `Expect counter at Counter to contain number ${i}`).toContainText(i.toString())
+                await counter.counterClickMe.click()
+                if (i == 5){
+                    i = 6
+                await expect(counter.currentCount).not.toContainText((i).toString())
+                }
+                else if(i == 18){
+                    i = 10000
+                    await expect(counter.currentCount).not.toContainText("18");
+                await counter.waitForCounterNumber(i+1);
+                await expect(counter.currentCount, `Expect counter at Home to contain number ${i+1}`).toContainText((i + 1).toString())
+    }}})
 })
 
 test('Enkel 3. Lag et script som legger til elementer i To Do listen.', async () => {

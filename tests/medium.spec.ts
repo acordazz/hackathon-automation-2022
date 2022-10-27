@@ -114,10 +114,14 @@ test.describe("Medium 2. Lag et script som trykker på knapper. Valider at knapp
                 await counter.waitForCounterNumber(i);
                 await expect(counter.currentCount, `Expect counter at Counter to contain number ${i}`).toContainText(i.toString())
                 await counter.counterClickMe.click()
+                if (i == 5){
+                    i = 6
+                await expect(counter.currentCount).not.toContainText((i).toString())
+                }
                 await counter.waitForCounterNumber(i+1);
                 await expect(counter.currentCount, `Expect counter at Home to contain number ${i+1}`).toContainText((i + 1).toString())
-            }
-        })
+            
+        }})
     })
 })
 
