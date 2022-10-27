@@ -19,5 +19,5 @@ test("EasterEgg?", async ({page}) => {
                 await counter.waitForCounterNumber(i);
                 await counter.counterClickMe.click();
             }
-            await expect(counter.currentCount).toContainText("100001");
+            await expect(counter.currentCount, `Expecting counter at 44th click to be '100001'`).toContainText("100001");
 })
