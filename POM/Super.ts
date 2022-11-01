@@ -9,4 +9,8 @@ export class Super {
         this.page = page;
         this.title = page.getByRole("heading");        
     }
+
+    extractCounter(counterText: string, substringToRemove: string): number {
+        return Number(counterText.slice(counterText.lastIndexOf(substringToRemove) + substringToRemove.length));
+    }
 }

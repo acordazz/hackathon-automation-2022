@@ -1,9 +1,9 @@
 import { test, Page, Locator, expect } from '@playwright/test';
-import { Sidebar } from '../POM/sidebar';
+import { Sidebar } from '../POM/Sidebar';
 import { FetchData } from '../POM/FetchData';
 import { Counter } from '../POM/Counter';
 import { Todo, todoItems } from '../POM/Todo';
-import { Home } from '../POM/home';
+import { Home } from '../POM/Home';
 import { Super } from '../POM/Super';
 
 let p: Page;
@@ -92,16 +92,18 @@ test.describe("Medium 2. Lag et script som trykker på knapper. Valider at knapp
         const newPage = await home.clickOnDrumsLink();
         await expect(newPage, `Expect new tab to have url 'https://trommelyd.no'`).toHaveURL('https://trommelyd.no')
     });
-    test('D. Lag en test på at du trykker på counter knappene ti ganger', async ({page}) => {
+    test('D. Lag en test på at du trykker på counter knappene femti ganger', async ({page}) => {
         await test.step('Homepage', async() => {
             const home = new Home(p)
             
             await page.waitForTimeout(1000)
-            for(let i= 0; i < 10; i++){
-                await home.waitForCounterNumber(i*10);
+            let j = 0;
+            for(let i= 0; i < 50; i++){
                 await home.counterClickMe.click();
-                await home.waitForCounterNumber((i+1)*10);
-                await expect(home.currentCount, `Expect counter at Home to contain number ${((i+1) * 10)}`).toContainText(((i+1) * 10).toString());
+                await p.waitForTimeout(300);
+                const counterText = await home.currentCount.innerText()
+                await expect.soft(home.currentCount, `Expect counter at Home to contain number ${((i+1) * 10)}, it has ${counterText}`).toContainText(((i+1) * 10).toString());
+                j = home.extractCounter(counterText, 'Current count: ')
             }
         })
         await test.step('Counterpage', async () => {
@@ -110,17 +112,13 @@ test.describe("Medium 2. Lag et script som trykker på knapper. Valider at knapp
             await sidebar.counter.click();
             await page.waitForTimeout(1500)
             
-            for(let i = 0; i<10; i++){
-                await counter.waitForCounterNumber(i);
-                await expect(counter.currentCount, `Expect counter at Counter to contain number ${i}`).toContainText(i.toString())
+            let j = 0;
+            for(let i = 0; i<50; i++){
                 await counter.counterClickMe.click()
-                if (i == 5){
-                    i = 6
-                await expect(counter.currentCount).not.toContainText((i).toString())
-                }
-                await counter.waitForCounterNumber(i+1);
-                await expect(counter.currentCount, `Expect counter at Home to contain number ${i+1}`).toContainText((i + 1).toString())
-            
+                await p.waitForTimeout(300);
+                const counterText = await counter.currentCount.innerText()
+                await expect.soft(counter.currentCount, `Expect counter at Counter to contain number ${j+1}, it has ${counterText}`).toContainText((j + 1).toString())
+                j = counter.extractCounter(counterText, 'Current count: ')
         }})
     })
 })
