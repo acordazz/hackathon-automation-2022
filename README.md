@@ -18,7 +18,10 @@ Klon repositoriet vårt:
 
 Naviger inn til prosjektet: ```hackathon-automation-2022```.
 Installer alle biblioteker (krever npm):
-```npm install```
+```
+npm install
+npx playwright install
+```
 
 Kjør Playwright testene:
 ```npx playwright test```
